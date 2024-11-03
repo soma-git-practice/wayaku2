@@ -13,5 +13,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'activerecord', '~> 7.1.3.2'
   spec.add_dependency 'enumerize'
   spec.add_development_dependency 'minitest', '~> 5.12', '>= 5.12.2'
-  spec.add_development_dependency 'pry', '~> 0.14.2'
+  spec.add_development_dependency 'irb', '~> 1.14', '>= 1.14.1'
 end

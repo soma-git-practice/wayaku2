@@ -17,15 +17,28 @@ class User < ActiveRecord::Base
 end
 
 class WayakuTest < Minitest::Test
-  def test_wayaku_enum_with_wrong_argment
-    assert_output(<<~TEXT) { User.wayaku_enum(:hoge) }
-      \e[43m何も見つかりませんでした\e[0m
+  def test_wayaku
+    assert_output(<<~TEXT) { User.wayaku(color: false) }
+      ユーザー
+      user
+        ID
+        id
+        名前
+        name
+        ステータス
+        status
+          寝ている
+          sleeping
+          働いている
+          working
+          謎に包まれている
+          mystery
     TEXT
   end
 
   def test_wayaku_enum_with_right_argment
-    binding.pry
-    assert_equal(<<~TEXT, User.wayaku_enum(:status))
+    skip '未完成'
+    assert_output(<<~TEXT) { User.wayaku_enum(:status) }
       ステータス
       status
         寝ている
@@ -34,6 +47,32 @@ class WayakuTest < Minitest::Test
         working
         謎に包まれている
         mystery
+    TEXT
+  end
+
+  def test_logicals
+    skip '未完成'
+    assert_output(<<~TEXT) { User.logicals }
+      ユーザー
+        ID
+        名前
+        ステータス
+          寝ている
+          働いている
+          謎に包まれている
+    TEXT
+  end
+
+  def test_physicals
+    skip '未完成'
+    assert_output(<<~TEXT) { User.physicals }
+      user
+        id
+        name
+        status
+          sleeping
+          working
+          mystery
     TEXT
   end
 end

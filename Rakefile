@@ -9,5 +9,5 @@ Rake::TestTask.new do |t|
 end
 
 # == USAGE ==
-# be rake test
-# be rake test TEST=test/hoge_test.rb
+# be rake test TESTOPTS='-v'
+# be rake test TESTOPTS='-v' TEST=test/hoge_test.rb

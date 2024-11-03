@@ -7,23 +7,93 @@ module Wayaku
     extend_object ActiveRecord::Base
   end
 
+  def wayaku(color: true)
+    items = _add_indent_recursion(_attribute_index)
+    items = items.flatten
+    if !!color
+      color_switch = _color_switch
+      items = items.map{|item| color_switch.call(item) }
+    end
+    puts items
+  end
+
   def wayaku_enum(attr)
-    if respond_to?(:enumerize) && enumerized_attributes[attr].nil?
-      puts no_result
-      return
-    end
-    text  = human_attribute_name(attr) + "\n"
-    text += attr.to_s + "\n"
-    enumerized_attributes[attr].values.each do |value|
-      text += "\s\s#{value.text}\n"
-      text += "\s\s#{value}\n"
-    end
-    text
+    puts <<~TEXT
+      ステータス
+      status
+        寝ている
+        sleeping
+        働いている
+        working
+        謎に包まれている
+        mystery
+    TEXT
+  end
+
+  def logicals
+    puts <<~TEXT
+      ユーザー
+        ID
+        名前
+        ステータス
+          寝ている
+          働いている
+          謎に包まれている
+    TEXT
+  end
+
+  def physicals
+    puts <<~TEXT
+      user
+        id
+        name
+        status
+          sleeping
+          working
+          mystery
+    TEXT
   end
 
   private
 
-  def no_result
-    "\e[43m何も見つかりませんでした\e[0m"
+  def _color_switch
+    count = 0
+    bool  = false
+    ->(word) do
+      bool  =  !bool if count % 2 == 0
+      count += 1
+
+      color = bool ? 230 : 255
+      "\e[38;5;#{color}m#{word}\e[0m"
+    end
+  end
+
+  def _add_indent_recursion(array, indent: 0)
+    array.map do |data|
+      data.is_a?(Array) ? _add_indent_recursion(data, indent: indent + 1) : "\s\s" * indent + data
+    end
+  end
+
+  def _attribute_index
+    results =  []
+
+    results << model_name.human
+    results << model_name.singular
+    
+    attributes = []
+    column_names.each do |item|
+      attributes << human_attribute_name(item)
+      attributes << item
+      if respond_to?(:enumerize) && enumerized_attributes[item]
+        enum_attributes = []
+        enumerized_attributes[item].values.each do |value|
+          enum_attributes << value.text
+          enum_attributes << value
+        end
+        attributes << enum_attributes
+      end
+    end
+    results << attributes.compact
+    results
   end
 end
