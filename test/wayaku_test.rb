@@ -51,7 +51,7 @@ class WayakuTest < Minitest::Test
 
   def test_wayaku_logicals
     skip '未完成'
-    assert_output(<<~TEXT) { User.logicals }
+    assert_output(<<~TEXT) { User.wayaku_logicals }
       ユーザー
         ID
         名前
@@ -64,7 +64,7 @@ class WayakuTest < Minitest::Test
 
   def test_wayaku_physicals
     skip '未完成'
-    assert_output(<<~TEXT) { User.physicals }
+    assert_output(<<~TEXT) { User.wayaku_physicals }
       user
         id
         name
