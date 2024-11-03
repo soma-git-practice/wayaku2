@@ -3,7 +3,7 @@
 module Wayaku
   autoload :VERSION, 'lib/wayaku/version'
 
-  if const_get :ActiveRecord
+  if const_defined? :ActiveRecord
     extend_object ActiveRecord::Base
   end
 
