@@ -36,9 +36,8 @@ class WayakuTest < Minitest::Test
     TEXT
   end
 
-  def test_wayaku_enum_with_right_argment
-    skip '未完成'
-    assert_output(<<~TEXT) { User.wayaku_enum(:status) }
+  def test_wayaku_enum
+    assert_output(<<~TEXT) { User.wayaku_enum(:status, color:false) }
       ステータス
       status
         寝ている
@@ -50,7 +49,7 @@ class WayakuTest < Minitest::Test
     TEXT
   end
 
-  def test_logicals
+  def test_wayaku_logicals
     skip '未完成'
     assert_output(<<~TEXT) { User.logicals }
       ユーザー
@@ -63,7 +62,7 @@ class WayakuTest < Minitest::Test
     TEXT
   end
 
-  def test_physicals
+  def test_wayaku_physicals
     skip '未完成'
     assert_output(<<~TEXT) { User.physicals }
       user

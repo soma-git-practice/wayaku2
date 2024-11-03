@@ -17,20 +17,26 @@ module Wayaku
     puts items
   end
 
-  def wayaku_enum(attr)
-    puts <<~TEXT
-      ステータス
-      status
-        寝ている
-        sleeping
-        働いている
-        working
-        謎に包まれている
-        mystery
-    TEXT
+  def wayaku_enum(attr, color: true)
+    unless enumerized_attributes[attr]
+      puts "\e[38;5;196m知らない属性\e[0m"
+      return
+    end
+    result = []
+    result << human_attribute_name(attr)
+    result << attr
+    enumerized_attributes[attr].values.each do |value|
+      result << "\s\s" + value.text
+      result << "\s\s" + value
+    end 
+    if !!color
+      color_switch = _color_switch
+      result = result.map{|value| color_switch.call(value) }
+    end
+    puts result
   end
 
-  def logicals
+  def wayaku_logicals
     puts <<~TEXT
       ユーザー
         ID
@@ -42,7 +48,7 @@ module Wayaku
     TEXT
   end
 
-  def physicals
+  def wayaku_physicals
     puts <<~TEXT
       user
         id
@@ -63,7 +69,7 @@ module Wayaku
       bool  =  !bool if count % 2 == 0
       count += 1
 
-      color = bool ? 230 : 255
+      color = bool ? 114 : 177
       "\e[38;5;#{color}m#{word}\e[0m"
     end
   end
