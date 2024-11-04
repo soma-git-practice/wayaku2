@@ -46,7 +46,7 @@ module Wayaku
   protected
 
   def parse_attribute(args)
-    [*args].inject([]) do |rst, arg|
+    [*args].inject([]) do |array, arg|
       additions = []
       scope = "activerecord.attributes.#{model_name.singular}"
       word  = I18n.backend.send(:lookup, I18n.locale, arg, scope)
@@ -57,25 +57,25 @@ module Wayaku
         additions << enumerized_attributes[arg].values.inject([]) { |rst, val| rst + [val.text, val] }
       end
 
-      rst + additions
+      array + additions
     end
   end
 
   def format_simply(array)
-    _add_indent_recursion(array).flatten
+    _add_indent(array).flatten
   end
 
   def format(array)
-    result = format_simply(array)
+    array = format_simply(array)
     color_switch = _init_color_switch
-    result.map { |value| color_switch.call(value) }
+    array.map { |value| color_switch.call(value) }
   end
 
   private
 
-  def _add_indent_recursion(array, indent: 0)
-    array.map do |data|
-      data.is_a?(Array) ? _add_indent_recursion(data, indent: indent + 1) : "\s\s" * indent + data
+  def _add_indent(array, indent: 0)
+    array.map do |value|
+      value.is_a?(Array) ? _add_indent(value, indent: indent + 1) : "\s\s" * indent + value
     end
   end
 
