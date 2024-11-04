@@ -77,7 +77,7 @@ class WayakuTest < Minitest::Test
 
   # TODO 削除する
   def test_get_attribute_with_right_symbol
-    assert_equal(['ステータス', :status], User.get_attribute(:status))
+    assert_equal(['ステータス', 'status'], User.get_attribute(:status))
   end
 
   def test_get_attribute_with_wrong_symbol

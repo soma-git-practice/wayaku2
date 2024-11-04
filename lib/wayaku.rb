@@ -65,7 +65,7 @@ module Wayaku
     [*args].inject([]) do |rst, arg|
       scope = "activerecord.attributes.#{model_name.singular}"
       word  = I18n.backend.send(:lookup, I18n.locale, arg, scope)
-      word.nil? ? rst : rst + [word, arg]
+      word.nil? ? rst : rst + [word, arg.to_s]
     end
   end
 
