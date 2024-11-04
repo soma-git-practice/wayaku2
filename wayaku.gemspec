@@ -3,12 +3,13 @@
 require_relative 'lib/wayaku/version'
 
 Gem::Specification.new do |spec|
-  spec.authors = ['soma']
+  spec.author = 'soma'
   spec.files = Dir['lib/**/*.rb']
   spec.name = 'wayaku'
   spec.summary = 'モデルの属性を和訳する'
   spec.version = Wayaku::VERSION
   spec.required_ruby_version = '>= 2.7'
+  spec.license = 'MIT'
 
   spec.add_dependency 'activerecord', '~> 7.1.3.2'
   spec.add_dependency 'enumerize'
