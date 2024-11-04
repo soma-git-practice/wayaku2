@@ -58,28 +58,24 @@ class WayakuTest < Minitest::Test
   end
 
   def test_wayaku_logicals
-    skip '未完成'
     assert_output(<<~TEXT) { User.wayaku_logicals }
-      ユーザー
-        ID
-        名前
-        ステータス
-          寝ている
-          働いている
-          謎に包まれている
+      ID
+      名前
+      ステータス
+        寝ている
+        働いている
+        謎に包まれている
     TEXT
   end
 
   def test_wayaku_physicals
-    skip '未完成'
     assert_output(<<~TEXT) { User.wayaku_physicals }
-      user
-        id
-        name
-        status
-          sleeping
-          working
-          mystery
+      id
+      name
+      status
+        sleeping
+        working
+        mystery
     TEXT
   end
 end
