@@ -20,27 +20,15 @@ module Wayaku
   end
 
   def wayaku_logicals
-    puts <<~TEXT
-      ユーザー
-        ID
-        名前
-        ステータス
-          寝ている
-          働いている
-          謎に包まれている
-    TEXT
+    array = parse_attribute(column_names)
+    array = format_simply(array)
+    puts array.each_slice(2).map(&:first)
   end
 
   def wayaku_physicals
-    puts <<~TEXT
-      user
-        id
-        name
-        status
-          sleeping
-          working
-          mystery
-    TEXT
+    array = parse_attribute(column_names)
+    array = format_simply(array)
+    puts array.each_slice(2).map(&:second)
   end
 
   private
