@@ -2,7 +2,7 @@
 
 Add this line to your Gemfile:
 
-    gem 'wayaku'
+    gem 'wayaku', '~> 0.1.2'
 
 And then execute:
 
