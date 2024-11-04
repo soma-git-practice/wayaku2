@@ -7,7 +7,3 @@ Rake::TestTask.new do |t|
   t.pattern = 'test/*_test.rb'
   t.verbose = true
 end
-
-# == USAGE ==
-# be rake test TESTOPTS='-v'
-# be rake test TESTOPTS='-v' TEST=test/hoge_test.rb
