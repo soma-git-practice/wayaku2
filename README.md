@@ -1,3 +1,11 @@
+# ごめんなさい sorry
+rails consoleで実際に動作確認をしていませんでした。
+今動作確認中です。
+
+I haven't actually checked the operation in the rails console.
+I'm currently checking the operation.
+
+
 ## Installation
 
 Add this line to your Gemfile:
