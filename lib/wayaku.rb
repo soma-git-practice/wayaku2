@@ -60,25 +60,6 @@ module Wayaku
     TEXT
   end
 
-  # TODO プライベートメソッドに移動する
-  def get_attribute(args)
-    [*args].inject([]) do |rst, arg|
-      additions = []
-
-      scope = "activerecord.attributes.#{model_name.singular}"
-      word  = I18n.backend.send(:lookup, I18n.locale, arg, scope)      
-      unless word.nil?
-        additions += [word, arg.to_s]
-      end
-
-      if respond_to?(:enumerize) && enumerized_attributes[arg]
-        additions << enumerized_attributes[arg].values.inject([]) { |rst, val| rst + [val.text, val] }
-      end
-
-      rst + additions
-    end
-  end
-
   private
 
   def _color_switch
@@ -96,6 +77,24 @@ module Wayaku
   def _add_indent_recursion(array, indent: 0)
     array.map do |data|
       data.is_a?(Array) ? _add_indent_recursion(data, indent: indent + 1) : "\s\s" * indent + data
+    end
+  end
+
+  def _get_attribute(args)
+    [*args].inject([]) do |rst, arg|
+      additions = []
+
+      scope = "activerecord.attributes.#{model_name.singular}"
+      word  = I18n.backend.send(:lookup, I18n.locale, arg, scope)      
+      unless word.nil?
+        additions += [word, arg.to_s]
+      end
+
+      if respond_to?(:enumerize) && enumerized_attributes[arg]
+        additions << enumerized_attributes[arg].values.inject([]) { |rst, val| rst + [val.text, val] }
+      end
+
+      rst + additions
     end
   end
 
