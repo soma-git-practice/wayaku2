@@ -43,7 +43,7 @@ module Wayaku
     TEXT
   end
 
-  protected
+  private
 
   def parse_attribute(args)
     [*args].inject([]) do |array, arg|
@@ -70,8 +70,6 @@ module Wayaku
     color_switch = _init_color_switch
     array.map { |value| color_switch.call(value) }
   end
-
-  private
 
   def _add_indent(array, indent: 0)
     array.map do |value|
