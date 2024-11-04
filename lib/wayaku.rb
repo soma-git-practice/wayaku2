@@ -3,37 +3,20 @@
 module Wayaku
   autoload :VERSION, 'lib/wayaku/version'
 
-  if const_defined? :ActiveRecord
-    extend_object ActiveRecord::Base
+  extend_object ActiveRecord::Base if const_defined? :ActiveRecord
+
+  def wayaku(bool: true)
+    array = [model_name.human, model_name.singular, parse_attribute(column_names)]
+    puts bool ? format(array) : format_simply(array)
   end
 
-  def wayaku(color: true)
-    items = _add_indent_recursion(_attribute_index)
-    items = items.flatten
-    if !!color
-      color_switch = _color_switch
-      items = items.map{|item| color_switch.call(item) }
-    end
-    puts items
-  end
-
-  def wayaku_enum(attr, color: true)
+  def wayaku_enum(attr, bool: true)
     unless enumerized_attributes[attr]
       puts "\e[38;5;196m知らない属性\e[0m"
       return
     end
-    result = []
-    result << human_attribute_name(attr)
-    result << attr
-    enumerized_attributes[attr].values.each do |value|
-      result << "\s\s" + value.text
-      result << "\s\s" + value
-    end 
-    if !!color
-      color_switch = _color_switch
-      result = result.map{|value| color_switch.call(value) }
-    end
-    puts result
+    array = parse_attribute(attr)
+    puts bool ? format(array) : format_simply(array)
   end
 
   def wayaku_logicals
@@ -60,35 +43,15 @@ module Wayaku
     TEXT
   end
 
-  private
+  protected
 
-  def _color_switch
-    count = 0
-    bool  = false
-    ->(word) do
-      bool  =  !bool if count % 2 == 0
-      count += 1
-
-      color = bool ? 114 : 177
-      "\e[38;5;#{color}m#{word}\e[0m"
-    end
-  end
-
-  def _add_indent_recursion(array, indent: 0)
-    array.map do |data|
-      data.is_a?(Array) ? _add_indent_recursion(data, indent: indent + 1) : "\s\s" * indent + data
-    end
-  end
-
-  def _get_attribute(args)
+  def parse_attribute(args)
     [*args].inject([]) do |rst, arg|
       additions = []
-
       scope = "activerecord.attributes.#{model_name.singular}"
-      word  = I18n.backend.send(:lookup, I18n.locale, arg, scope)      
-      unless word.nil?
-        additions += [word, arg.to_s]
-      end
+      word  = I18n.backend.send(:lookup, I18n.locale, arg, scope)
+      
+      additions += [word, arg.to_s] unless word.nil?
 
       if respond_to?(:enumerize) && enumerized_attributes[arg]
         additions << enumerized_attributes[arg].values.inject([]) { |rst, val| rst + [val.text, val] }
@@ -98,26 +61,33 @@ module Wayaku
     end
   end
 
-  def _attribute_index
-    results =  []
+  def format_simply(array)
+    _add_indent_recursion(array).flatten
+  end
 
-    results << model_name.human
-    results << model_name.singular
-    
-    attributes = []
-    column_names.each do |item|
-      attributes << human_attribute_name(item)
-      attributes << item
-      if respond_to?(:enumerize) && enumerized_attributes[item]
-        enum_attributes = []
-        enumerized_attributes[item].values.each do |value|
-          enum_attributes << value.text
-          enum_attributes << value
-        end
-        attributes << enum_attributes
-      end
+  def format(array)
+    result = format_simply(array)
+    color_switch = _init_color_switch
+    result.map { |value| color_switch.call(value) }
+  end
+
+  private
+
+  def _add_indent_recursion(array, indent: 0)
+    array.map do |data|
+      data.is_a?(Array) ? _add_indent_recursion(data, indent: indent + 1) : "\s\s" * indent + data
     end
-    results << attributes.compact
-    results
+  end
+
+  def _init_color_switch
+    count = 0
+    bool  = false
+    lambda do |word|
+      bool = !bool if count.even?
+      count += 1
+
+      color = bool ? 114 : 177
+      "\e[38;5;#{color}m#{word}\e[0m"
+    end
   end
 end
