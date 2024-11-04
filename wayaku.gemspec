@@ -12,9 +12,9 @@ Gem::Specification.new do |spec|
   spec.license = 'MIT'
 
   spec.add_dependency 'activerecord', '~> 7.1.3.2'
-  spec.add_dependency 'enumerize'
+  spec.add_dependency 'enumerize', '~> 2.8'
   spec.add_dependency 'sqlite3', '~> 1.7.3'
-  spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'pry', '~> 0.14.2'
   spec.add_development_dependency 'minitest', '~> 5.12', '>= 5.12.2'
-  spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'rubocop', '~> 1.68'
 end
