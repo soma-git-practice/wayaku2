@@ -77,7 +77,7 @@ class WayakuTest < Minitest::Test
 
   # TODO 削除する
   def test_get_attribute_with_right_symbol
-    assert_equal(['ステータス', 'status'], User.get_attribute(:status))
+    assert_equal(['ステータス', 'status', ['寝ている', 'sleeping', '働いている', 'working', '謎に包まれている', 'mystery']], User.get_attribute(:status))
   end
 
   def test_get_attribute_with_wrong_symbol
@@ -85,6 +85,6 @@ class WayakuTest < Minitest::Test
   end
 
   def test_get_attribute_with_array
-    assert_equal(['ID','id','名前','name','ステータス','status'], User.get_attribute(User.column_names))
+    assert_equal(['ID','id','名前','name','ステータス','status', ['寝ている', 'sleeping', '働いている', 'working', '謎に包まれている', 'mystery']], User.get_attribute(User.column_names))
   end
 end
