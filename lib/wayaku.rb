@@ -3,7 +3,7 @@
 module Wayaku
   autoload :VERSION, 'lib/wayaku/version'
 
-  extend_object ActiveRecord::Base if const_defined? :ActiveRecord
+  extend_object ActiveRecord::Base
 
   def wayaku(bool: true)
     array = [model_name.human, model_name.singular, parse_attribute(column_names)]
