@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'activerecord', '~> 7.1.3.2'
   spec.add_dependency 'enumerize'
   spec.add_dependency 'sqlite3', '~> 1.7.3'
-  spec.add_development_dependency 'irb', '~> 1.14', '>= 1.14.1'
+  spec.add_development_dependency 'pry'
   spec.add_development_dependency 'minitest', '~> 5.12', '>= 5.12.2'
   spec.add_development_dependency 'rubocop'
 end
