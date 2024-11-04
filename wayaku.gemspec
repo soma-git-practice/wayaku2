@@ -10,6 +10,7 @@ Gem::Specification.new do |spec|
   spec.version = Wayaku::VERSION
   spec.required_ruby_version = '>= 2.7'
   spec.license = 'MIT'
+  spec.metadata["source_code_uri"] = "https://github.com/soma-git-practice/wayaku2"
 
   spec.add_dependency 'activerecord', '~> 7.1.3.2'
   spec.add_dependency 'enumerize', '~> 2.8'
