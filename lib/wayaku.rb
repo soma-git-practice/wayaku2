@@ -63,9 +63,19 @@ module Wayaku
   # TODO プライベートメソッドに移動する
   def get_attribute(args)
     [*args].inject([]) do |rst, arg|
+      additions = []
+
       scope = "activerecord.attributes.#{model_name.singular}"
-      word  = I18n.backend.send(:lookup, I18n.locale, arg, scope)
-      word.nil? ? rst : rst + [word, arg.to_s]
+      word  = I18n.backend.send(:lookup, I18n.locale, arg, scope)      
+      unless word.nil?
+        additions += [word, arg.to_s]
+      end
+
+      if respond_to?(:enumerize) && enumerized_attributes[arg]
+        additions << enumerized_attributes[arg].values.inject([]) { |rst, val| rst + [val.text, val] }
+      end
+
+      rst + additions
     end
   end
 
