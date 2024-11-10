@@ -20,63 +20,62 @@ class User < ActiveRecord::Base
   enumerize :status, in: %i[sleeping working mystery]
 end
 
-# TODO Improve readability
 class WayakuTest < Minitest::Test
   def test_wayaku
-    assert_output(<<~TEXT) { User.wayaku }
-      \e[38;5;255mユーザー\e[0m
-      \e[38;5;255muser\e[0m
-          \e[38;5;2mID\e[0m
-          \e[38;5;2mid\e[0m
-          \e[38;5;2m名前\e[0m
-          \e[38;5;2mname\e[0m
-          \e[38;5;2mステータス\e[0m
-          \e[38;5;2mstatus\e[0m
-              \e[38;5;3m寝ている\e[0m
-              \e[38;5;3msleeping\e[0m
-              \e[38;5;3m働いている\e[0m
-              \e[38;5;3mworking\e[0m
-              \e[38;5;3m謎に包まれている\e[0m
-              \e[38;5;3mmystery\e[0m
+    assert_output(<<~TEXT) { User.wayaku(bool: false) }
+      ユーザー
+      user
+          ID
+          id
+          名前
+          name
+          ステータス
+          status
+              寝ている
+              sleeping
+              働いている
+              working
+              謎に包まれている
+              mystery
     TEXT
   end
 
   def test_wayaku_enum_with_right_argment
-    assert_output(<<~TEXT) { User.wayaku_enum(:status) }
-      \e[38;5;2mステータス\e[0m
-      \e[38;5;2mstatus\e[0m
-          \e[38;5;3m寝ている\e[0m
-          \e[38;5;3msleeping\e[0m
-          \e[38;5;3m働いている\e[0m
-          \e[38;5;3mworking\e[0m
-          \e[38;5;3m謎に包まれている\e[0m
-          \e[38;5;3mmystery\e[0m
+    assert_output(<<~TEXT) { User.wayaku_enum(:status, bool: false) }
+      ステータス
+      status
+          寝ている
+          sleeping
+          働いている
+          working
+          謎に包まれている
+          mystery
     TEXT
   end
 
   def test_wayaku_enum_with_wrong_argment
-    assert_output("\e[38;5;196m知らない属性\e[0m\n") { User.wayaku_enum(:hoge) }
+    assert_output("\e[38;5;196m知らない属性\e[0m\n") { User.wayaku_enum(:hoge, bool: false) }
   end
 
   def test_wayaku_logicals
     assert_output(<<~TEXT) { User.wayaku_logicals }
-      \e[38;5;2mID\e[0m
-      \e[38;5;2m名前\e[0m
-      \e[38;5;2mステータス\e[0m
-          \e[38;5;3m寝ている\e[0m
-          \e[38;5;3m働いている\e[0m
-          \e[38;5;3m謎に包まれている\e[0m
+      ID
+      名前
+      ステータス
+          寝ている
+          働いている
+          謎に包まれている
     TEXT
   end
 
   def test_wayaku_physicals
     assert_output(<<~TEXT) { User.wayaku_physicals }
-      \e[38;5;2mid\e[0m
-      \e[38;5;2mname\e[0m
-      \e[38;5;2mstatus\e[0m
-          \e[38;5;3msleeping\e[0m
-          \e[38;5;3mworking\e[0m
-          \e[38;5;3mmystery\e[0m
+      id
+      name
+      status
+          sleeping
+          working
+          mystery
     TEXT
   end
 end
