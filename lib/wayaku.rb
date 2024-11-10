@@ -5,29 +5,29 @@ module Wayaku
 
   extend_object ActiveRecord::Base
 
-  def wayaku(bool: true)
+  def wayaku
     array = [model_name.human, model_name.singular, parse_attribute(column_names)]
-    puts bool ? format(array) : format_simply(array)
+    puts format(array)
   end
 
-  def wayaku_enum(attr, bool: true)
+  def wayaku_enum(attr)
     unless enumerized_attributes[attr]
       puts "\e[38;5;196m知らない属性\e[0m"
       return
     end
     array = parse_attribute(attr)
-    puts bool ? format(array) : format_simply(array)
+    puts format(array)
   end
 
   def wayaku_logicals
     array = parse_attribute(column_names)
-    array = format_simply(array)
+    array = format(array)
     puts array.each_slice(2).map(&:first)
   end
 
   def wayaku_physicals
     array = parse_attribute(column_names)
-    array = format_simply(array)
+    array = format(array)
     puts array.each_slice(2).map(&:second)
   end
 
@@ -49,31 +49,13 @@ module Wayaku
     end
   end
 
-  def format_simply(array)
-    _add_indent(array).flatten
-  end
-
   def format(array)
-    array = format_simply(array)
-    color_switch = _init_color_switch
-    array.map { |value| color_switch.call(value) }
+    _add_indent(array).flatten
   end
 
   def _add_indent(array, indent: 0)
     array.map do |value|
       value.is_a?(Array) ? _add_indent(value, indent: indent + 1) : "\s\s\s\s" * indent + value
-    end
-  end
-
-  def _init_color_switch
-    count = 0
-    bool  = false
-    lambda do |word|
-      bool = !bool if count.even?
-      count += 1
-
-      color = bool ? 114 : 177
-      "\e[38;5;#{color}m#{word}\e[0m"
     end
   end
 end
