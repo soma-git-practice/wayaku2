@@ -74,12 +74,12 @@ class WayakuTest < Minitest::Test
   def test_wayaku_physicals
     skip 'after logicals'
     assert_output(<<~TEXT) { User.wayaku_physicals }
-      \e[38;5;2mid\e[0m
-      \e[38;5;2mname\e[0m
-      \e[38;5;2mstatus\e[0m
-          \e[38;5;3msleeping\e[0m
-          \e[38;5;3mworking\e[0m
-          \e[38;5;3mmystery\e[0m
+      id
+      name
+      status
+          sleeping
+          working
+          mystery
     TEXT
   end
 end
