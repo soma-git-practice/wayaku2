@@ -2,7 +2,7 @@
 
 Add this line to your Gemfile:
 
-    gem 'wayaku', '~> 0.1.2'
+    gem 'wayaku', '~> 0.1.3'
 
 And then execute:
 
@@ -62,12 +62,25 @@ how to use in rails console.
 ```yml
 ユーザー
 user
-  ID
-  id
-  名前
-  name
-  ステータス
-  status
+    ID
+    id
+    名前
+    name
+    ステータス
+    status
+        寝ている
+        sleeping
+        働いている
+        working
+        謎に包まれている
+        mystery
+```
+
+#### User.wayaku_enum(:status)
+
+```yml
+ステータス
+status
     寝ている
     sleeping
     働いている
@@ -76,28 +89,15 @@ user
     mystery
 ```
 
-#### User.wayaku_enum(:status)
-
-```yml
-ステータス
-status
-  寝ている
-  sleeping
-  働いている
-  working
-  謎に包まれている
-  mystery
-```
-
 #### User.wayaku_logicals
 
 ```yml
 ID
 名前
 ステータス
-  寝ている
-  働いている
-  謎に包まれている
+    寝ている
+    働いている
+    謎に包まれている
 ```
 
 #### User.wayaku_physicals
@@ -106,9 +106,9 @@ ID
 id
 name
 status
-  sleeping
-  working
-  mystery
+    sleeping
+    working
+    mystery
 ```
 
 ## Development
