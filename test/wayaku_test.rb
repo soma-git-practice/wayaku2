@@ -23,7 +23,7 @@ end
 class WayakuTest < Minitest::Test
   def test_wayaku
     skip 'after physicals'
-    assert_output(<<~TEXT) { User.wayaku(bool: false) }
+    assert_output(<<~TEXT) { User.wayaku }
       ユーザー
       user
           ID
@@ -43,7 +43,7 @@ class WayakuTest < Minitest::Test
 
   def test_wayaku_enum_with_right_argment
     skip 'after wayaku'
-    assert_output(<<~TEXT) { User.wayaku_enum(:status, bool: false) }
+    assert_output(<<~TEXT) { User.wayaku_enum(:status) }
       ステータス
       status
           寝ている
@@ -57,7 +57,7 @@ class WayakuTest < Minitest::Test
 
   def test_wayaku_enum_with_wrong_argment
     skip 'after wayaku'
-    assert_output("\e[38;5;196m知らない属性\e[0m\n") { User.wayaku_enum(:hoge, bool: false) }
+    assert_output("\e[38;5;196m知らない属性\e[0m\n") { User.wayaku_enum(:hoge) }
   end
 
   def test_wayaku_logicals
