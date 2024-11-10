@@ -25,18 +25,18 @@ class WayakuTest < Minitest::Test
     assert_output(<<~TEXT) { User.wayaku(bool: false) }
       ユーザー
       user
-        ID
-        id
-        名前
-        name
-        ステータス
-        status
-          寝ている
-          sleeping
-          働いている
-          working
-          謎に包まれている
-          mystery
+          ID
+          id
+          名前
+          name
+          ステータス
+          status
+              寝ている
+              sleeping
+              働いている
+              working
+              謎に包まれている
+              mystery
     TEXT
   end
 
@@ -44,12 +44,12 @@ class WayakuTest < Minitest::Test
     assert_output(<<~TEXT) { User.wayaku_enum(:status, bool: false) }
       ステータス
       status
-        寝ている
-        sleeping
-        働いている
-        working
-        謎に包まれている
-        mystery
+          寝ている
+          sleeping
+          働いている
+          working
+          謎に包まれている
+          mystery
     TEXT
   end
 
@@ -62,9 +62,9 @@ class WayakuTest < Minitest::Test
       ID
       名前
       ステータス
-        寝ている
-        働いている
-        謎に包まれている
+          寝ている
+          働いている
+          謎に包まれている
     TEXT
   end
 
@@ -73,9 +73,9 @@ class WayakuTest < Minitest::Test
       id
       name
       status
-        sleeping
-        working
-        mystery
+          sleeping
+          working
+          mystery
     TEXT
   end
 end
