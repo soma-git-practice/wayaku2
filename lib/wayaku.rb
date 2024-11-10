@@ -21,7 +21,7 @@ module Wayaku
 
   def wayaku_logicals
     array = parse_attribute(column_names)
-    array = format_simply(array)
+    array = format(array)
     puts array.each_slice(2).map(&:first)
   end
 
@@ -49,14 +49,9 @@ module Wayaku
     end
   end
 
-  def format_simply(array)
-    _add_indent(array).flatten
-  end
-
   def format(array)
-    array = format_simply(array)
-    color_switch = _init_color_switch
-    array.map { |value| color_switch.call(value) }
+    array = _add_indent(array).flatten
+    array = _add_color(array)
   end
 
   def _add_indent(array, indent: 0)
@@ -65,15 +60,14 @@ module Wayaku
     end
   end
 
-  def _init_color_switch
-    count = 0
-    bool  = false
-    lambda do |word|
-      bool = !bool if count.even?
-      count += 1
-
-      color = bool ? 114 : 177
-      "\e[38;5;#{color}m#{word}\e[0m"
+  def _add_color(array)
+    # TODO 配列ではなくハッシュにする？
+    head_is_model = begin
+      head_size = array.count { |obj| obj.first != "\s" }
+      head_size == 2
     end
+    color_pettern = head_is_model ? [255, 2, 3] : [2, 3]
+    # こっからどうしよう？ 次回ここから
+    binding.pry
   end
 end
