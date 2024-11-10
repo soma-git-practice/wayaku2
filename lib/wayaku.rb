@@ -61,7 +61,7 @@ module Wayaku
 
   def _add_indent(array, indent: 0)
     array.map do |value|
-      value.is_a?(Array) ? _add_indent(value, indent: indent + 1) : "\s\s" * indent + value
+      value.is_a?(Array) ? _add_indent(value, indent: indent + 1) : "\s\s\s\s" * indent + value
     end
   end
 
