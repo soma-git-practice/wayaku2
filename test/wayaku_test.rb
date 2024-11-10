@@ -22,7 +22,7 @@ end
 
 class WayakuTest < Minitest::Test
   def test_wayaku
-    skip 'after logicals, physicals'
+    skip 'after physicals'
     assert_output(<<~TEXT) { User.wayaku(bool: false) }
       ユーザー
       user
@@ -72,6 +72,7 @@ class WayakuTest < Minitest::Test
   end
 
   def test_wayaku_physicals
+    skip 'after logicals'
     assert_output(<<~TEXT) { User.wayaku_physicals }
       \e[38;5;2mid\e[0m
       \e[38;5;2mname\e[0m
