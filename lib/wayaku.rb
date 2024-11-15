@@ -52,6 +52,7 @@ module Wayaku
   def format(array)
     array = _add_indent(array).flatten
     array = _add_color(array)
+    array
   end
 
   def _add_indent(array, indent: 0)
@@ -61,13 +62,11 @@ module Wayaku
   end
 
   def _add_color(array)
-    # TODO 配列ではなくハッシュにする？
-    head_is_model = begin
-      head_size = array.count { |obj| obj.first != "\s" }
-      head_size == 2
-    end
+    head_is_model = array.any? { |obj| obj.include?("\s\s\s\s" * 2) }
     color_pettern = head_is_model ? [255, 2, 3] : [2, 3]
-    # こっからどうしよう？ 次回ここから
-    binding.pry
+    array.map do |item|
+      color_index = item.scan(/\s{4}/).count
+      "\e[38;5;#{color_pettern[color_index]}m#{item}\e[0m"
+    end
   end
 end
