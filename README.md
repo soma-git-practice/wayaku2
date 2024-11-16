@@ -2,7 +2,7 @@
 
 Add this line to your Gemfile:
 
-    gem 'wayaku', '~> 0.1.3'
+    gem 'wayaku', '~> 0.1.4'
 
 And then execute:
 
@@ -18,6 +18,7 @@ class CreateUsers < ActiveRecord::Migration[7.0]
     create_table :users do |t|
       t.string :name
       t.string :status
+      t.string :unknown
     end
   end
 end
@@ -59,7 +60,7 @@ how to use in rails console.
 
 #### User.wayaku
 
-```yml
+```text
 ユーザー
 user
     ID
@@ -74,11 +75,13 @@ user
         working
         謎に包まれている
         mystery
+    Translation missing: ja.activerecord.attributes.user.unknown
+    unknown
 ```
 
 #### User.wayaku_enum(:status)
 
-```yml
+```text
 ステータス
 status
     寝ている
@@ -91,24 +94,26 @@ status
 
 #### User.wayaku_logicals
 
-```yml
+```text
 ID
 名前
 ステータス
     寝ている
     働いている
     謎に包まれている
+Translation missing: ja.activerecord.attributes.user.unknown
 ```
 
 #### User.wayaku_physicals
 
-```yml
+```text
 id
 name
 status
     sleeping
     working
     mystery
+unknown
 ```
 
 ## Development
