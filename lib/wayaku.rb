@@ -36,11 +36,12 @@ module Wayaku
   def parse_attribute(args)
     [*args].inject([]) do |array, arg|
       additions = []
-      scope = "activerecord.attributes.#{model_name.singular}"
-      word  = I18n.backend.send(:lookup, I18n.locale, arg, scope)
-      
-      additions += [word, arg.to_s] unless word.nil?
 
+      # attribute
+      word = I18n.translate(arg, scope: "activerecord.attributes.#{model_name.singular}")
+      additions += [word, arg.to_s]
+
+      # enumerized_attribute
       if respond_to?(:enumerize) && enumerized_attributes[arg]
         additions << enumerized_attributes[arg].values.inject([]) { |rst, val| rst + [val.text, val] }
       end

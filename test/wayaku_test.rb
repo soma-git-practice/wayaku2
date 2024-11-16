@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
     connection.create_table table_name do |t|
       t.string :name
       t.string :status
+      t.string :unknown
     end
   end
 
@@ -37,6 +38,8 @@ class WayakuTest < Minitest::Test
               working
               謎に包まれている
               mystery
+          Translation missing: ja.activerecord.attributes.user.unknown
+          unknown
     TEXT
   end
 
@@ -65,6 +68,7 @@ class WayakuTest < Minitest::Test
           寝ている
           働いている
           謎に包まれている
+      Translation missing: ja.activerecord.attributes.user.unknown
     TEXT
   end
 
@@ -76,6 +80,7 @@ class WayakuTest < Minitest::Test
           sleeping
           working
           mystery
+      unknown
     TEXT
   end
 end
