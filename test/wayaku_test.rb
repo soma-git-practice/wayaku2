@@ -23,33 +23,33 @@ end
 class WayakuTest < Minitest::Test
   def test_wayaku
     assert_output(<<~TEXT) { User.wayaku }
-      \e[38;5;255mユーザー\e[0m
-      \e[38;5;255muser\e[0m
-      \e[38;5;2m    ID\e[0m
-      \e[38;5;2m    id\e[0m
-      \e[38;5;2m    名前\e[0m
-      \e[38;5;2m    name\e[0m
-      \e[38;5;2m    ステータス\e[0m
-      \e[38;5;2m    status\e[0m
-      \e[38;5;3m        寝ている\e[0m
-      \e[38;5;3m        sleeping\e[0m
-      \e[38;5;3m        働いている\e[0m
-      \e[38;5;3m        working\e[0m
-      \e[38;5;3m        謎に包まれている\e[0m
-      \e[38;5;3m        mystery\e[0m
+      ユーザー
+      user
+          ID
+          id
+          名前
+          name
+          ステータス
+          status
+              寝ている
+              sleeping
+              働いている
+              working
+              謎に包まれている
+              mystery
     TEXT
   end
 
   def test_wayaku_enum_with_right_argment
     assert_output(<<~TEXT) { User.wayaku_enum(:status) }
-      \e[38;5;2mステータス\e[0m
-      \e[38;5;2mstatus\e[0m
-      \e[38;5;3m    寝ている\e[0m
-      \e[38;5;3m    sleeping\e[0m
-      \e[38;5;3m    働いている\e[0m
-      \e[38;5;3m    working\e[0m
-      \e[38;5;3m    謎に包まれている\e[0m
-      \e[38;5;3m    mystery\e[0m
+      ステータス
+      status
+          寝ている
+          sleeping
+          働いている
+          working
+          謎に包まれている
+          mystery
     TEXT
   end
 
@@ -59,23 +59,23 @@ class WayakuTest < Minitest::Test
 
   def test_wayaku_logicals
     assert_output(<<~TEXT) { User.wayaku_logicals }
-      \e[38;5;2mID\e[0m
-      \e[38;5;2m名前\e[0m
-      \e[38;5;2mステータス\e[0m
-      \e[38;5;3m    寝ている\e[0m
-      \e[38;5;3m    働いている\e[0m
-      \e[38;5;3m    謎に包まれている\e[0m
+      ID
+      名前
+      ステータス
+          寝ている
+          働いている
+          謎に包まれている
     TEXT
   end
 
   def test_wayaku_physicals
     assert_output(<<~TEXT) { User.wayaku_physicals }
-      \e[38;5;2mid\e[0m
-      \e[38;5;2mname\e[0m
-      \e[38;5;2mstatus\e[0m
-      \e[38;5;3m    sleeping\e[0m
-      \e[38;5;3m    working\e[0m
-      \e[38;5;3m    mystery\e[0m
+      id
+      name
+      status
+          sleeping
+          working
+          mystery
     TEXT
   end
 end

@@ -51,22 +51,12 @@ module Wayaku
 
   def format(array)
     array = _add_indent(array).flatten
-    array = _add_color(array)
     array
   end
 
   def _add_indent(array, indent: 0)
     array.map do |value|
       value.is_a?(Array) ? _add_indent(value, indent: indent + 1) : "\s\s\s\s" * indent + value
-    end
-  end
-
-  def _add_color(array)
-    head_is_model = array.any? { |obj| obj.include?("\s\s\s\s" * 2) }
-    color_pettern = head_is_model ? [255, 2, 3] : [2, 3]
-    array.map do |item|
-      color_index = item.scan(/\s{4}/).count
-      "\e[38;5;#{color_pettern[color_index]}m#{item}\e[0m"
     end
   end
 end
